@@ -1,0 +1,45 @@
+{
+  "name": "pabeda-bt/php-crawler",
+  "description": "Crawl all internal links in a website",
+  "homepage": "https://github.com/pabeda-bt/php-crawler",
+  "license": "MIT",
+  "keywords": [
+    "pabeda",
+    "pabeda-bt",
+    "crawler",
+    "link",
+    "website"
+  ],
+  "authors": [
+    {
+      "name": "Kervan ASLAN",
+      "email": "k.aslan@pabeda.com.tr"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "symfony/dom-crawler": "^2.7",
+    "guzzlehttp/guzzle": "^6.1",
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pabeda\\": "crawler/src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pabeda\\": "crawler/tests"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.0.x-dev"
+    }
+  }
+}
