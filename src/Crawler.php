@@ -7,7 +7,7 @@ class Crawler {
     private $crawledUrls=[];
     private $errorUrls=[];
     private $client;
-    private $maxRequestcount=1000;
+    private $maxRequestcount=0;
     private $requestCount=0;
     /**
      * crawl given url, get internal url's and crawl them again
