@@ -26,12 +26,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Pabeda\\": "crawler/src"
+      "Pabeda\\Crawler": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Pabeda\\": "crawler/tests"
+      "Pabeda\\CrawlerTest": "tests/"
     }
   },
   "scripts": {
