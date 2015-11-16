@@ -23,11 +23,13 @@ class Crawler {
         ]);
     }
 
+    public function setMaxRequestCount($maxRequestCount) {
+        $this->maxRequestcount=$maxRequestCount;
+    }
+
     function crawl($url,$afterCrawl=null,$beforeCrawl=null){
         $md5Url=md5($url);
-        if (in_array($md5Url,$this->crawledUrls)){
-            return;
-        }
+
         try {
             $this->crawledUrls[]=$md5Url;
             $response = $this->client->request("GET", $url);
@@ -46,10 +48,15 @@ class Crawler {
             unset($domCrawler);
 
             foreach ($urlsToCrawl as $urlToCrawl) {
+                $urlNormalized=$this->normalizeUrl($url, $urlToCrawl);
                 if ($this->maxRequestcount!=0 && $this->requestCount>=$this->maxRequestcount) return;
-                if (isset($beforeCrawl) && !$beforeCrawl($url)) continue;
-                if ($this->isCrawlable($url, $urlToCrawl)) {
-                    $this->crawl($this->normalizeUrl($url, $urlToCrawl), $afterCrawl, $beforeCrawl);
+                if ($this->isCrawlable($url, $urlNormalized)) {
+
+                    if (isset($beforeCrawl) && !$beforeCrawl($urlNormalized)){
+                        continue;
+                    }
+
+                    $this->crawl($urlNormalized, $afterCrawl, $beforeCrawl);
                 }
             }
         } catch(\Exception $e){
@@ -62,6 +69,10 @@ class Crawler {
         $urlData=parse_url($url);
 
         if (isset($urlData['scheme']) && $urlData['scheme']==='mailto'){
+            return false;
+        }
+
+        if (in_array(md5($url),$this->crawledUrls)){
             return false;
         }
 
